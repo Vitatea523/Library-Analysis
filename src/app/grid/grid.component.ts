@@ -1,44 +1,63 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { AgGridAngular } from 'ag-grid-angular'; // AG Grid Component
+import { HttpClientModule } from '@angular/common/http';
 import { ColDef } from 'ag-grid-community'; // Column Definition Type Interface
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
+import account from "../../assets/grid-poc-main/data/accounts.json";
+import { HttpClient } from '@angular/common/http';
+import { iTransaction } from '../../assets/grid-poc-main/data/transactionInterface';
 
-interface IRow {
-  make: string;
-  model: string;
-  price: number;
-  electric: boolean;
-}
+
 
 @Component({
   selector: 'app-grid',
   standalone: true,
-  imports: [AgGridAngular],
+  imports: [AgGridAngular,HttpClientModule,CommonModule,AgGridAngular],
   providers: [],
   templateUrl: './grid.component.html',
   styleUrl: './grid.component.css'
 })
-export class GridComponent {
-  themeClass =
-    "ag-theme-quartz";
 
-  // Row Data: The data to be displayed.
-  rowData: IRow[] = [
-    { make: 'Tesla', model: 'Model Y', price: 64950, electric: true },
-    { make: 'Ford', model: 'F-Series', price: 33850, electric: false },
-    { make: 'Toyota', model: 'Corolla', price: 29600, electric: false },
-    { make: 'Mercedes', model: 'EQA', price: 48890, electric: true },
-    { make: 'Fiat', model: '500', price: 15774, electric: false },
-    { make: 'Nissan', model: 'Juke', price: 20675, electric: false },
+export class GridComponent implements OnInit{
+  accountList:any;
+  tansactionsData: iTransaction[] = [];
+  url:string = 'assets/grid-poc-main/data/transactions.json'
+
+  colDefs: ColDef[] = [
+    { field: "_id", headerName:'ID' },
+    { field: "direction" ,headerName:'Direction'},
+    { field: "description" ,headerName:'Description'},
+    { field: "accountId",headerName:'Account ID' },
+    { field: "_revalTransaction",headerName:'Reval Transaction'},
+    { field: "_quantity",headerName:'Quantity'},
+    { field: "_valuation",headerName:'Valuation'},
+    { field: "_transactionDate",headerName:'Transaction Date'},
+    { field: "category",headerName:'Category'},
+    { field: "classifications",headerName:'Classifications'}
   ];
 
-  // Column Definitions: Defines & controls grid columns.
-  colDefs: ColDef<IRow>[] = [
-    { field: 'make' },
-    { field: 'model' },
-    { field: 'price' },
-    { field: 'electric' },
-  ];
+  defaultColDef = {
+    flex:1,
+    minWidth:150
+  }
+  
 
+  constructor(private http: HttpClient){
+    console.log(account);
+  }
+
+  ngOnInit(): void {
+    this.getTransaction();
+    // throw new Error('Method not implemented.');
+  }
+
+  getTransaction() {
+    this.http.get(this.url).subscribe((res:any) =>{
+      this.tansactionsData = res;
+      console.log(this.tansactionsData[0])
+    })
+  }
+  
 }

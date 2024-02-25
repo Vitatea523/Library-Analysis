@@ -1,12 +1,12 @@
 <p>grid works!</p>
-
-<div class="content" style="width: 100%; height: 100%;">
-    <!-- The AG Grid component, with Dimensions, CSS Theme, Row Data, and Column Definition -->
-    <ag-grid-angular
-      style="width: 100%; height: 100%;"
-      [class]="themeClass"
-      [rowData]="rowData"
-      [columnDefs]="colDefs"
-    >
-    </ag-grid-angular>
+<p>{{ accountList | json }}</p>
+<div class="col">
+  <!-- The AG Grid component -->
+  <ag-grid-angular 
+  class="ag-theme-quartz" 
+  style="height: 500px;" 
+  [rowData]="tansactionsData" 
+  [columnDefs]="colDefs"
+  [defaultColDef]="defaultColDef">
+  </ag-grid-angular>
 </div>
