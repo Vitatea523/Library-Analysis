@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import {
-  faLocation,
-  faShop,
-  faBoxes,
+  faEye,
+  faUser,
   faMoneyBill,
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -16,10 +15,7 @@ import {
   styleUrl: './top-widgets.component.css'
 })
 export class TopWidgetsComponent {
-  faLocation = faLocation;
-  faShop = faShop;
-  faBoxes = faBoxes;
+  faEye = faEye;
+  faUser = faUser;
   faMoneyBill = faMoneyBill;
-
-
 }

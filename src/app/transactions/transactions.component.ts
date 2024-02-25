@@ -7,7 +7,10 @@ import 'ag-grid-community/styles/ag-theme-quartz.css';
 import account from "../../assets/grid-poc-main/data/accounts.json";
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { iTransaction } from '../../assets/grid-poc-main/data/transactionInterface';
-import './transactions.component.css'
+import './transactions.component.css';
+// import { ModuleRegistry } from '@ag-grid-community/core';
+// import { SetFilterModule } from '@ag-grid-enterprise/set-filter';
+// import 'ag-grid-enterprise';
 
 
 
@@ -25,11 +28,11 @@ export class TransactionsComponent implements OnInit {
   url: string = 'assets/grid-poc-main/data/transactions.json'
 
   colDefs: (ColDef | ColGroupDef)[] = [
-    { field: "_id", headerName: 'ID', filter: 'agTextColumnFilter',width: 300 },
-    { field: "direction", headerName: 'Direction' ,width: 100},
+    { field: "_id", headerName: 'ID', width: 300 , filter: 'agTextColumnFilter' },
+    { field: "direction", headerName: 'Direction' ,width: 100,filter: 'agTextColumnFilter'},
     { field: "description", headerName: 'Description', width: 300},
-    { field: "accountId", headerName: 'Account ID' },
-    { field: "_revalTransaction", headerName: 'Reval Transaction',width: 150 },
+    { field: "accountId", headerName: 'Account ID',filter: 'agSetColumnFilter' },
+    { field: "_revalTransaction", headerName: 'Reval Transaction',width: 150 ,filter: 'agTextColumnFilter'},
     {
       field: "_quantity._actualQuantity._symbol", headerName: 'Quantity',headerClass: 'quantity-group',marryChildren: true,
       children: [
@@ -40,8 +43,8 @@ export class TransactionsComponent implements OnInit {
           width: 150,
           filter: 'agNumberColumnFilter',
         },
-        { columnGroupShow: 'open', field: '_quantity._actualQuantity._amount', headerName: 'Amount' },
-        { columnGroupShow: 'open', field: '_quantity._actualQuantity._symbol', headerName: 'Symbol' },
+        { columnGroupShow: 'open', field: '_quantity._actualQuantity._amount', headerName: 'Amount' ,filter: 'agNumberColumnFilter'},
+        { columnGroupShow: 'open', field: '_quantity._actualQuantity._symbol', headerName: 'Symbol' ,filter: 'agTextColumnFilter'},
         { columnGroupShow: 'open', field: '_quantity._currency', headerName: 'Currency' },
       ]
     },
@@ -55,16 +58,19 @@ export class TransactionsComponent implements OnInit {
           width: 150,
           filter: 'agNumberColumnFilter',
         },
-        { columnGroupShow: 'open', field: '_valuation._value._amount', headerName: 'Amount' },
-        // {columnGroupShow: 'open',field:'_quantity._actualQuantity._precision',headerName:'Precision'},
-        { columnGroupShow: 'open', field: '_valuation._value._symbol', headerName: 'Symbol' },
-        { columnGroupShow: 'open', field: '_valuation._normalizedValue._amount', headerName: 'Normalized Amount' },
-        { columnGroupShow: 'open', field: '_valuation._normalizedValue._symbol', headerName: 'Normalized Symbol' },
+        { columnGroupShow: 'open', field: '_valuation._value._amount', headerName: 'Amount',filter: 'agNumberColumnFilter' },
+        { columnGroupShow: 'open', field: '_valuation._value._symbol', headerName: 'Symbol' ,filter: 'agTextColumnFilter'},
+        { columnGroupShow: 'open', field: '_valuation._normalizedValue._amount', headerName: 'Normalized Amount' ,filter: 'agNumberColumnFilter'},
+        { columnGroupShow: 'open', field: '_valuation._normalizedValue._symbol', headerName: 'Normalized Symbol',filter: 'agTextColumnFilter' },
       ]
     },
-    { field: "_transactionDate", headerName: 'Transaction Date',width: 250 },
-    { field: "category", headerName: 'Category',width: 100 },
-    { field: "classifications", headerName: 'Classifications',width: 250}
+    { headerName: 'Transaction Date',
+    filter: 'agDateColumnFilter',
+    valueGetter: (params: ValueGetterParams) => {
+      return typeof params.data._transactionDate=='string'?params.data._transactionDate:params.data._transactionDate.date;
+    }, width: 250 },
+    { field: "category", headerName: 'Category',width: 100 ,filter: 'agTextColumnFilter'},
+    { field: "classifications", headerName: 'Classifications',width: 250,filter: 'agTextColumnFilter'}
   ];
 
   defaultColDef = {
@@ -86,5 +92,4 @@ export class TransactionsComponent implements OnInit {
       this.tansactionsData = res;
     })
   }
-
 }

@@ -17,19 +17,16 @@
   }
   
   .widget-container .widget.green {
-    background-color: rgb(4, 67, 66);
+    background-color: rgb(26 33 32);
   }
   
   .widget-container .widget.yellow {
-    background-color: rgb(237, 158, 32);
+    background-color: rgb(185 155 107);
   }
   
-  .widget-container .widget.red {
-    background-color: rgb(126, 5, 5);
-  }
   
   .widget-container .widget.blue {
-    background-color: rgb(105, 32, 251);
+    background-color: rgb(69 29 11);
   }
   
   @media only screen and (max-width: 1600px) {
