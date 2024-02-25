@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { GridComponent } from './grid/grid.component';
+import { TransactionsComponent } from './transactions/transactions.component';
 import { AccountsComponent } from './accounts/accounts.component';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,GridComponent,AccountsComponent],
+  imports: [RouterOutlet,TransactionsComponent,AccountsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

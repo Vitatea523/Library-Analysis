@@ -12,15 +12,15 @@ import { iTransaction } from '../../assets/grid-poc-main/data/transactionInterfa
 
 
 @Component({
-  selector: 'app-grid',
+  selector: 'app-transactions',
   standalone: true,
   imports: [AgGridAngular,HttpClientModule,CommonModule],
   providers: [],
-  templateUrl: './grid.component.html',
-  styleUrl: './grid.component.css'
+  templateUrl: './transactions.component.html',
+  styleUrl: './transactions.component.css'
 })
 
-export class GridComponent implements OnInit{
+export class TransactionsComponent implements OnInit{
   tansactionsData: iTransaction[] = [];
   url:string = 'assets/grid-poc-main/data/transactions.json'
 
