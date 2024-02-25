@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AgGridAngular } from 'ag-grid-angular'; // AG Grid Component
 import { HttpClientModule } from '@angular/common/http';
-import { ColDef } from 'ag-grid-community'; // Column Definition Type Interface
+import { ColDef,ICellRendererParams,ValueGetterParams } from 'ag-grid-community'; // Column Definition Type Interface
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import account from "../../assets/grid-poc-main/data/accounts.json";
@@ -14,24 +14,23 @@ import { iTransaction } from '../../assets/grid-poc-main/data/transactionInterfa
 @Component({
   selector: 'app-grid',
   standalone: true,
-  imports: [AgGridAngular,HttpClientModule,CommonModule,AgGridAngular],
+  imports: [AgGridAngular,HttpClientModule,CommonModule],
   providers: [],
   templateUrl: './grid.component.html',
   styleUrl: './grid.component.css'
 })
 
 export class GridComponent implements OnInit{
-  accountList:any;
   tansactionsData: iTransaction[] = [];
   url:string = 'assets/grid-poc-main/data/transactions.json'
 
   colDefs: ColDef[] = [
-    { field: "_id", headerName:'ID' },
+    { field: "_id", headerName:'ID',filter:'agTextColumnFilter' },
     { field: "direction" ,headerName:'Direction'},
     { field: "description" ,headerName:'Description'},
     { field: "accountId",headerName:'Account ID' },
     { field: "_revalTransaction",headerName:'Reval Transaction'},
-    { field: "_quantity",headerName:'Quantity'},
+    { field: "_quantity",headerName:'Quantity', },
     { field: "_valuation",headerName:'Valuation'},
     { field: "_transactionDate",headerName:'Transaction Date'},
     { field: "category",headerName:'Category'},
