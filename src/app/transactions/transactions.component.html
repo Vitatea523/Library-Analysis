@@ -2,11 +2,12 @@
 <!-- <p>{{ accountList | json }}</p> -->
 <div class="col">
   <!-- The AG Grid component -->
-  <ag-grid-angular 
+  <ag-grid-angular
   class="ag-theme-quartz" 
-  style="height: 500px;" 
+  style="height: 500px;width: 1000px;" 
   [rowData]="tansactionsData" 
   [columnDefs]="colDefs"
   [defaultColDef]="defaultColDef">
+  <!-- (gridReady)="getTransaction($event) -->
   </ag-grid-angular>
 </div>

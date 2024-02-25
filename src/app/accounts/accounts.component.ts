@@ -28,8 +28,8 @@ export class AccountsComponent {
     "ag-theme-quartz";
   accountList:IAccount[]=[];
   colDefs: ColDef<IAccount>[] = [
-    { field: '_id' },
     { field: 'name' },
+    { field: '_id' ,headerName:"ID"},
     { field: 'timezone' },
     { field: 'currency' },
   ];
