@@ -29,6 +29,9 @@ export class PieChartComponent implements OnChanges {
       title: {
         text: 'Category of '+this.accName+' Transaction'
       },
+      subtitle: {
+        text: 'Choose Single Account.'
+    },
       xAxis: {
         categories: Array.from(this.pieData.keys())
       },

@@ -1,4 +1,4 @@
-import { Component, OnInit,Input, } from '@angular/core';
+import { Component, OnInit,Input, OnChanges, SimpleChanges, } from '@angular/core';
 import { CommonModule, getCurrencySymbol } from '@angular/common';
 import { AgGridAngular } from 'ag-grid-angular'; // AG Grid Component
 import { ColDef, ColGroupDef, GridApi, GridReadyEvent, ICellRendererParams, ValueGetterParams } from 'ag-grid-community'; // Column Definition Type Interface
@@ -9,6 +9,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { iTransaction } from '../../assets/grid-poc-main/data/transactionInterface';
 import './transactions.component.css';
 import { PieChartComponent } from '../pie-chart/pie-chart.component';
+import { LineChartComponent } from '../line-chart/line-chart.component';
 // import { ModuleRegistry } from '@ag-grid-community/core';
 // import { SetFilterModule } from '@ag-grid-enterprise/set-filter';
 // import 'ag-grid-enterprise';
@@ -18,13 +19,13 @@ import { PieChartComponent } from '../pie-chart/pie-chart.component';
 @Component({
   selector: 'app-transactions',
   standalone: true,
-  imports: [AgGridAngular, HttpClientModule, CommonModule,PieChartComponent],
+  imports: [AgGridAngular, HttpClientModule, CommonModule,PieChartComponent,LineChartComponent],
   providers: [],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css'
 })
 
-export class TransactionsComponent implements OnInit {
+export class TransactionsComponent implements OnChanges {
   transactionsData: iTransaction[] = [];
   url: string = 'assets/grid-poc-main/data/transactions.json';
   categoryCountMap: Map<string, number> = new Map<string, number>(); 
@@ -110,6 +111,10 @@ export class TransactionsComponent implements OnInit {
   constructor(private http: HttpClient) {
     console.log(account);
   }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+    this.getCategoryPie(this.accountMap.get(this.accNow))
+  }
 
   ngOnInit(): void {
     this.getTransaction();
@@ -132,6 +137,7 @@ export class TransactionsComponent implements OnInit {
       console.log(transaction+"aaaaaa")
       if (transaction.accountId === acc) {
         let category = transaction.category;
+        console.log(transaction.accountId)
         if (categoryCountMap.has(category)) {
           categoryCountMap.set(category, categoryCountMap.get(category)! + 1);
         } else {

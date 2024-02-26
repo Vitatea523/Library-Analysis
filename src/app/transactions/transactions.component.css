@@ -25,3 +25,77 @@
   --ag-font-size: 15px;
   --ag-font-family: monospace;
 }
+
+@media only screen and (max-width: 1600px) {
+
+    .middle-section {
+      width: 1200px;
+    }
+  }
+  
+  @media only screen and (max-width: 1500px) {
+
+    .middle-section {
+      width: 1100px;
+    }
+  }
+  
+  @media only screen and (max-width: 1400px) {
+
+    .middle-section {
+      width: 1000px;
+    }
+  }
+  
+  @media only screen and (max-width: 1200px) {
+
+    .middle-section {
+      width: 900px;
+    }
+  }
+  
+  .middle-section {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .middle-section .widget {
+    height: 350px;
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 10px;
+    box-shadow: 5px 5px 5px #939393;
+  }
+  
+  .middle-section .widget.left {
+    width: 890px;
+  }
+  
+  @media only screen and (max-width: 1600px) {
+    .middle-section .widget.left {
+      width: 790px;
+    }
+  }
+  
+  @media only screen and (max-width: 1500px) {
+    .middle-section .widget.left {
+      width: 690px;
+    }
+  }
+  
+  @media only screen and (max-width: 1400px) {
+    .middle-section .widget.left {
+      width: 590px;
+    }
+  }
+  
+  @media only screen and (max-width: 1200px) {
+    .middle-section .widget.left {
+      width: 490px;
+    }
+  }
+  
+  .middle-section .widget.right {
+    width: 450px;
+  }
+  
