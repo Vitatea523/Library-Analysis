@@ -60,7 +60,6 @@ export class AccountsComponent {
     if (this.gridApi) {
         const selectedRows = this.gridApi.getSelectedRows();
         this.accNow = selectedRows.length === 1 ? selectedRows[0].name : 'Acc1';
-        console.log(this.accNow)
     }
 }
 
@@ -71,8 +70,6 @@ export class AccountsComponent {
       res.forEach((res:any) => {
         this.accountMap.set(res.name,res._id);
       });
-      console.log(this.accountMap.get('Acc1'))
-      console.log("account list:"+this.accountList)
     })
     
   }
