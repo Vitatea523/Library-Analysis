@@ -4,9 +4,10 @@
   <ag-grid-angular
   class="ag-theme-quartz" 
   style="height: 500px;width: 1200px;" 
-  [rowData]="tansactionsData" 
+  [rowData]="transactionsData" 
   [columnDefs]="colDefs"
   [defaultColDef]="defaultColDef">
   <!-- (gridReady)="getTransaction($event) -->
   </ag-grid-angular>
+  <app-pie-chart  [pieData]="categoryCountMap" [accName]="accNow"></app-pie-chart>
 </div>

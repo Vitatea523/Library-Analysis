@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input, } from '@angular/core';
 import { CommonModule, getCurrencySymbol } from '@angular/common';
 import { AgGridAngular } from 'ag-grid-angular'; // AG Grid Component
 import { ColDef, ColGroupDef, GridApi, GridReadyEvent, ICellRendererParams, ValueGetterParams } from 'ag-grid-community'; // Column Definition Type Interface
@@ -8,6 +8,7 @@ import account from "../../assets/grid-poc-main/data/accounts.json";
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { iTransaction } from '../../assets/grid-poc-main/data/transactionInterface';
 import './transactions.component.css';
+import { PieChartComponent } from '../pie-chart/pie-chart.component';
 // import { ModuleRegistry } from '@ag-grid-community/core';
 // import { SetFilterModule } from '@ag-grid-enterprise/set-filter';
 // import 'ag-grid-enterprise';
@@ -17,15 +18,19 @@ import './transactions.component.css';
 @Component({
   selector: 'app-transactions',
   standalone: true,
-  imports: [AgGridAngular, HttpClientModule, CommonModule],
+  imports: [AgGridAngular, HttpClientModule, CommonModule,PieChartComponent],
   providers: [],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css'
 })
 
 export class TransactionsComponent implements OnInit {
-  tansactionsData: iTransaction[] = [];
-  url: string = 'assets/grid-poc-main/data/transactions.json'
+  transactionsData: iTransaction[] = [];
+  url: string = 'assets/grid-poc-main/data/transactions.json';
+  categoryCountMap: Map<string, number> = new Map<string, number>(); 
+  @Input() accNow:string="Acc1";
+  @Input() accountMap: Map<string, string>=new Map<string, string>;
+  
 
   colDefs: (ColDef | ColGroupDef)[] = [
     { field: "_id", headerName: 'ID', width: 300, filter: 'agTextColumnFilter' },
@@ -113,7 +118,28 @@ export class TransactionsComponent implements OnInit {
 
   getTransaction() {
     this.http.get(this.url).subscribe((res: any) => {
-      this.tansactionsData = res;
+      this.transactionsData = res;
+      //他竟然是同步进行的如果放在外面
+      this.categoryCountMap=this.getCategoryPie(this.accountMap.get(this.accNow));
+
     })
+  }
+
+  getCategoryPie(acc:string| undefined):Map<string, number> {
+    let categoryCountMap: Map<string, number> = new Map<string, number>();
+    console.log("Transaction data length:", this.transactionsData.length);
+    this.transactionsData.forEach(transaction => {
+      console.log(transaction+"aaaaaa")
+      if (transaction.accountId === acc) {
+        let category = transaction.category;
+        if (categoryCountMap.has(category)) {
+          categoryCountMap.set(category, categoryCountMap.get(category)! + 1);
+        } else {
+          categoryCountMap.set(category, 1);
+        }
+      }
+    });
+    console.log(categoryCountMap.get('Category 2'))
+    return categoryCountMap;
   }
 }

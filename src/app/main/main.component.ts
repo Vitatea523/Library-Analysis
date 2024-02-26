@@ -15,4 +15,6 @@ import { LineChartComponent } from '../line-chart/line-chart.component';
 })
 export class MainComponent {
 
+  
+
 }
