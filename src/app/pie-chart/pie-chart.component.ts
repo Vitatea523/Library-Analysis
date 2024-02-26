@@ -13,7 +13,6 @@ export class PieChartComponent implements OnChanges {
   @Input() pieData:Map<string,number>=new Map<string,number>;
   @Input() accName:string="Acc1";
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes)
       this.updateChartOptions();
     
   }
